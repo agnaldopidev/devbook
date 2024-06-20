@@ -1,0 +1,51 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devbook</title>
+  <link href="./assets/css/bootstrap.css" rel="stylesheet" />
+</head>
+
+<body>
+
+  {{ template "cabecalho" }}
+  <div class="container-fluid">
+    <div class="row mt-4">
+      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+        <!-- Formulario -->
+        <h3>Novo Publicação</h3>
+        <fieldset>
+          <form id="nova-publicacao">
+            <div class="form-group">
+              <label for="titulo">Titulo</label>
+              <input type="text" class="form-control" id="titulo" name="titulo" required placeholder="Novo Titulo">
+            </div>
+            <div class="form-group">
+              <label for="conteudo">Conteudo</label>
+              <textarea class="form-control" id="conteudo" name="conteudo" required
+                placeholder="Novo conteudo"></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">Publicar</button>
+          </form>
+        </fieldset>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
+        {{ range . }}
+        <div class="jumbotron">
+          <h1 class="display-4">{{ .Titulo }}</h1>
+          <p class="lead">{{ .Conteudo }}</p>
+          <a href="#">{{ .AutorNick }} - {{ .CriadoEm }}</a>
+          <hr class="my-4">
+          <p>Botoes</p>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+  {{ template "footer" }}
+</body>
+{{ template "scripts" }}
+<script src="./assets/js/publicacao.js"></script>
+
+</html>
