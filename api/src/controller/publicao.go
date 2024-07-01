@@ -44,11 +44,8 @@ func BuscarPucacao(w http.ResponseWriter, r *http.Request) {
 	if erro != nil {
 		resposta.Erro(w, http.StatusInternalServerError, erro)
 	}
-	if lista != nil {
-		resposta.JSON(w, http.StatusOK, lista)
-	}
 
-	resposta.JSON(w, http.StatusBadRequest, nil)
+	resposta.JSON(w, http.StatusOK, lista)
 }
 
 // buscar publicacao por id
@@ -64,11 +61,8 @@ func BuscarPublicacaoPorId(w http.ResponseWriter, r *http.Request) {
 	if erro != nil {
 		resposta.Erro(w, http.StatusInternalServerError, erro)
 	}
-	if lista != nil {
-		resposta.JSON(w, http.StatusOK, lista)
-	}
 
-	resposta.JSON(w, http.StatusBadRequest, nil)
+	resposta.JSON(w, http.StatusOK, lista)
 
 }
 

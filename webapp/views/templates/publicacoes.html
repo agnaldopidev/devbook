@@ -1,0 +1,30 @@
+{{ define "curtidas" }}
+<span>{{ .Curtida }} curtidas</span>
+{{ end }}
+
+{{ define "cabecalho-publicacao" }}
+<h1 class="display-4">{{ .Titulo }}</h1>
+<p class="lead">
+    {{.Conteudo }}
+</p>
+<a href="#">{{ .AutorId }} - {{ .CreatedAt }}</a>
+<hr class=" my-4">
+{{ end }}
+
+{{ define "publicacao-com-permissao" }}
+<div class="jumbotron" data-pulicacao-id="{{ .ID }}">
+    {{ template "cabecalho-publicacao" .}}
+    <p>
+        {{ template "curtidas" .}}
+    </p>
+</div>
+{{ end }}
+
+{{ define "publicacao-sem-permissao" }}
+<div class="jumbotron" data-pulicacao-id="{{ .ID }}">
+    {{ template "cabecalho-publicacao" .}}
+    <p>
+        {{ template "curtidas" .}}
+    </p>
+</div>
+{{ end }}

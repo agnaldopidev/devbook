@@ -3,6 +3,7 @@ package repository
 import (
 	"api/src/modelo"
 	"database/sql"
+	"fmt"
 )
 
 // tipo usuario
@@ -34,17 +35,28 @@ func (resitorio *PublicacaoRepository) SalvarPublicacao(Publicacao modelo.Public
 // busca Publicacao
 func (repository PublicacaoRepository) BuscarPucacao(id uint64) ([]modelo.Publicacao, error) {
 	query := `select
-	distinct p.*,
-	u.nick
-	from
-		publicacao p
-	join usuario u on
-		p.autor_id = u.id
-	join seguidor s on
-		p.autor_id = s.usuario_id
-	where
-	u.id = $1
-	or s.seguidor_id = $2`
+				p.*
+				,(
+					select
+						u.nick
+					from
+						usuario u
+					where
+						u.id = p.autor_id
+				) nick
+			from
+				publicacao p
+			where
+				p.autor_id = $1
+				or p.autor_id in (
+					select
+						s.seguidor_id
+					from
+						seguidor s
+					where
+						s.usuario_id = $2
+				)`
+	fmt.Println("\n", query)
 	linhas, erro := repository.db.Query(query, id, id)
 
 	if erro != nil {

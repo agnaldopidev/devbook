@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"webapp/src/config"
+	"webapp/src/requisicao"
 	"webapp/src/resposta"
 )
 
@@ -24,7 +25,7 @@ func Publicar(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("\n\t\tpublicacao\n", bytes.NewBuffer(publicacao))
 	url := fmt.Sprintf("%s/publicacao", config.APIURL)
 	//response, erro := http.Post(url, "application/json", bytes.NewBuffer(publicacao))
-	response, erro := requisicoes.FazerRequisicaoComAutenticacao(r, http.MethodPost, url, bytes.NewBuffer(publicacao))
+	response, erro := requisicao.FazerRequisicaoComAutenticacao(r, http.MethodPost, url, bytes.NewBuffer(publicacao))
 	if erro != nil {
 		resposta.JSON(w, http.StatusInternalServerError, resposta.ErroAPI{Erro: erro.Error()})
 	}
